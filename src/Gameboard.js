@@ -1,8 +1,12 @@
+import { Ship } from "./Ship.js";
 function Gameboard() {
     const rows = 10;
     const columns = 10;
     const board = [];
     const missedAttacks = [];
+    const getBoard = () => {
+        return board;
+    }
     const cell = () => {
         let value = '';
         let Ship = null;
@@ -19,14 +23,14 @@ function Gameboard() {
             Ship = ship;
         } 
     };
-    for (let i = 0; i < row; ++i) {
+    for (let i = 0; i < rows; ++i) {
         board[i] = [];
-        for (let j = 0; j < column; ++j) {
+        for (let j = 0; j < columns; ++j) {
             board[i].push(cell());
         }   
     }
-    const placeShip = (row, column) => {
-        board[row][column].placeShipOnCell();
+    const placeShip = (row, column, ship) => {
+        board[row][column].placeShipOnCell(ship);
     };
     const receiveAttack = (row, column) => {
         let ship = board[row][column].getShip();
@@ -50,7 +54,8 @@ function Gameboard() {
         });
         return defeated; 
     };
-
+    
+    return { getBoard, placeShip, receiveAttack, areAllShipsSunk};
 }
 export { Gameboard }; 
 
