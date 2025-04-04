@@ -19,3 +19,7 @@ test('test player object', () => {
     expect(myPlayer.name).toBe("sarfroz");
     expect(myPlayer.Gameboard).toStrictEqual(new Gameboard());
 })
+
+test('test Gameboard class', () => { 
+    
+});

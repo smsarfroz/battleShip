@@ -1,7 +1,5 @@
 import { Player } from "./Player.js";
 function DOM() {
-    let player1 = new Player("sarfroz");
-    let player2 = new Player("computer");
     
     const humanBoard = document.querySelector(".humanBoard");
     const computerBoard = document.querySelector(".computerBoard");
@@ -23,6 +21,11 @@ function DOM() {
     };
     makeGrid(humanBoard);
     makeGrid(computerBoard);
-    return { player1, player2 };
+
+    const setupNewGame = () => {
+        let player1 = new Player("sarfroz");
+        let player2 = new Player("computer");
+    };
+    return { setupNewGame };
 }
 export { DOM };
