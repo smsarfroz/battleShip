@@ -15,21 +15,24 @@ function Gameboard() {
         };
         const placeStuff = (stuff) => {
             value = stuff;
-        }
+        };
         const getShip = () => {
             return Ship;
-        }
+        };
         const placeShipOnCell = (ship) => {
             Ship = ship;
-        } 
+        };
     };
     for (let i = 0; i < rows; ++i) {
         board[i] = [];
         for (let j = 0; j < columns; ++j) {
-            board[i].push(cell());
+            board[i].push(cell);
         }   
     }
     const placeShip = (row, column, ship) => {
+        console.log(board[row][column]);
+        console.log(ship);
+        console.log(board[row][column].placeShipOnCell);
         board[row][column].placeShipOnCell(ship);
     };
     const receiveAttack = (row, column) => {
