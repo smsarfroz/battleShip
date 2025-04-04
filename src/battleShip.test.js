@@ -1,4 +1,6 @@
-import { Ship } from "./Ship";
+import { Player } from "./Player.js";
+import { Ship } from "./Ship.js";
+import { Gameboard } from "./Gameboard.js";
 
 test('test ship class', () => { 
     const shipObject = new Ship(4, 3, false);
@@ -11,3 +13,9 @@ test('test ship class', () => {
 
     expect(shipObject.isSunk()).toBe(true);
 });
+
+test('test player object', () => { 
+    const myPlayer = new Player("sarfroz");
+    expect(myPlayer.name).toBe("sarfroz");
+    expect(myPlayer.Gameboard).toStrictEqual(new Gameboard());
+})
