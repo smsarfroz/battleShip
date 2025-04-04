@@ -22,6 +22,8 @@ function Gameboard() {
         const placeShipOnCell = (ship) => {
             Ship = ship;
         };
+        
+        return { getValue, placeStuff, getShip, placeShipOnCell};
     };
     for (let i = 0; i < rows; ++i) {
         board[i] = [];
