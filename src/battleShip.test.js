@@ -32,14 +32,21 @@ describe("test Gameboard class", () => {
   it("should contain the value that was assigned to the cell", () => {
     expect(boardcell.getValue()).toBe('X');
   });   
-
   game.receiveAttack(0,0);
   it("should have updated value of number of attacks", () => {
     expect(ship.numberOfHits).toBe(1);
   });
   game.receiveAttack(1,0);
+  it("should have updated value of number of attacks as 2", () => {
+    expect(ship.numberOfHits).toBe(2);
+  });
   game.receiveAttack(2,0);
-  console.log(ship.isSunk());
+  it("should have updated value of number of attacks as 3", () => {
+    expect(ship.numberOfHits).toBe(3);
+  });
+  it("should contain a ship inside the cell", () => {
+    expect(board[0][0].getShip()).toBe(ship);
+  });
   it("should report that all ships are sunk", () => {
     expect(game.areAllShipsSunk()).toBe(true);
   });

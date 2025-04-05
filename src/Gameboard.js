@@ -32,7 +32,11 @@ function Gameboard() {
         }   
     }
     const placeShip = (row, column, ship) => {
+        //assuming ship is placed horizontally
+        let shipLength = ship.length;
         board[row][column].placeShipOnCell(ship);
+        board[row + 1][column].placeShipOnCell(ship);
+        board[row + 2][column].placeShipOnCell(ship);
     };
     const receiveAttack = (row, column) => {
         let ship = board[row][column].getShip();
@@ -49,10 +53,12 @@ function Gameboard() {
         board.forEach((row, index1) => {
             row.forEach((Cell, index2) => {
                 let ship = Cell.getShip();
-                console.log(ship);
-                console.log(ship.isSunk());
-                if (!ship.isSunk()) {
-                    defeated = false;
+                if (ship) {
+                    if (!ship.isSunk()) {
+                        defeated = false;
+                    }
+                } else {
+                    // console.log("No ship object found in this cell.");
                 }
             });
         });
