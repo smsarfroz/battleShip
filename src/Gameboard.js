@@ -37,7 +37,7 @@ function Gameboard() {
         let ship = new Ship(lengthOfShip);
         for (let i = 0; i < lengthOfShip; ++i) {
             board[row + i][column].placeShipOnCell(ship);
-            board[row + i][column].placeStuff('X');
+            board[row + i][column].placeStuff('[ship]');
         }
     };
     const receiveAttack = (row, column) => {

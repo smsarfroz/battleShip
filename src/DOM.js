@@ -18,6 +18,8 @@ function DOM() {
         const valOnCell = board[i][j].getValue();
         const celldiv = document.createElement("div");
         celldiv.classList.add("cell");
+        celldiv.dataset.row = i;
+        celldiv.dataset.column = j;
         celldiv.textContent = valOnCell;
         rowdiv.appendChild(celldiv);
       }
@@ -40,8 +42,40 @@ function DOM() {
 
     updateBoardDisplay(gameboard1, 1);
     updateBoardDisplay(gameboard2, 2);
+    return { player1, player2, gameboard1, gameboard2 };
   };
   setupNewGame();
+
+  const gameController = () => {
+    let { player1, player2, gameboard1, gameboard2 } = setupNewGame();
+    const players = [
+      {
+        name: player1
+      },
+      {
+        name: player2
+      }
+    ];
+    let activePlayer = players[0];
+    const switchPlayerTurn = () => {
+      activePlayer = (activePlayer == players[0] ? players[1] : players[0]);
+    };
+    const getActivePlayer = () => {
+      return activePlayer;
+    };
+    const board = document.querySelector("#board");
+    board.addEventListener('click', (event) => {
+      const cellDiv = event.target;
+      const row = cellDiv.row;
+      const column = cellDiv.column;
+      playRound(row, column);
+    });
+    const playRound = (row, column) => {
+      
+    };
+    return {players, switchPlayerTurn, getActivePlayer, playRound};
+  };
   return { setupNewGame, updateBoardDisplay };
 }
 export { DOM };
+ 
