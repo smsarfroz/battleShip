@@ -25,6 +25,7 @@ function DOM() {
     const setupNewGame = () => {
         let player1 = new Player("sarfroz");
         let player2 = new Player("computer");
+        
     };
     return { setupNewGame };
 }

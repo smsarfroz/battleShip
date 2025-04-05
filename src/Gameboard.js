@@ -31,12 +31,13 @@ function Gameboard() {
             board[i].push(cell());
         }   
     }
-    const placeShip = (row, column, ship) => {
+    const placeShip = (row, column, lengthOfShip) => {
         //assuming ship is placed horizontally
-        let shipLength = ship.length;
-        board[row][column].placeShipOnCell(ship);
-        board[row + 1][column].placeShipOnCell(ship);
-        board[row + 2][column].placeShipOnCell(ship);
+        //assuming the locations where it is being placed are valid
+        let ship = new Ship(lengthOfShip);
+        for (let i = 0; i < lengthOfShip; ++i) {
+            board[row + i][column].placeShipOnCell(ship);
+        }
     };
     const receiveAttack = (row, column) => {
         let ship = board[row][column].getShip();
