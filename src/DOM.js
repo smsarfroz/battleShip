@@ -1,32 +1,47 @@
 import { Player } from "./Player.js";
 function DOM() {
-    
-    const humanBoard = document.querySelector(".humanBoard");
-    const computerBoard = document.querySelector(".computerBoard");
+ 
+  const updateBoardDisplay = (gameboard, playerNumber) => {
+    const board = gameboard.getBoard();
+    const boardElement =
+      playerNumber == 1
+        ? document.querySelector(".humanBoard")
+        : document.querySelector(".computerBoard");
+    const rows = 10;
+    const columns = 10;
+    for (let i = 0; i < rows; ++i) {
+      const rowdiv = document.createElement("div");
+      rowdiv.classList.add("row");
+      boardElement.appendChild(rowdiv);
 
-    const makeGrid = (boardElement) => {
-        const row = 10;
-        const column = 10;
-        for (let i = 0; i < row; ++i) {
-            const rowdiv = document.createElement("div");
-            rowdiv.classList.add("row");
-            boardElement.appendChild(rowdiv);
+      for (let j = 0; j < columns; ++j) {
+        const valOnCell = board[i][j].getValue();
+        const celldiv = document.createElement("div");
+        celldiv.classList.add("cell");
+        celldiv.textContent = valOnCell;
+        rowdiv.appendChild(celldiv);
+      }
+    }
+  };
 
-            for (let j = 0; j < column; ++j) {
-                const celldiv = document.createElement("div");
-                celldiv.classList.add("cell");
-                rowdiv.appendChild(celldiv);
-            }
-        }
-    };
-    makeGrid(humanBoard);
-    makeGrid(computerBoard);
+  const setupNewGame = () => {
+    let player1 = new Player("sarfroz");
+    let player2 = new Player("computer");
+    let gameboard1 = player1.Gameboard;
+    let gameboard2 = player2.Gameboard;
+    //place ships randomly
+    gameboard1.placeShip(0, 0, 4);
+    gameboard1.placeShip(0, 2, 3);
+    gameboard1.placeShip(0, 4, 2);
 
-    const setupNewGame = () => {
-        let player1 = new Player("sarfroz");
-        let player2 = new Player("computer");
-        
-    };
-    return { setupNewGame };
+    gameboard2.placeShip(3, 0, 4);
+    gameboard2.placeShip(3, 2, 3);
+    gameboard2.placeShip(3, 4, 2);
+
+    updateBoardDisplay(gameboard1, 1);
+    updateBoardDisplay(gameboard2, 2);
+  };
+  setupNewGame();
+  return { setupNewGame, updateBoardDisplay };
 }
 export { DOM };
