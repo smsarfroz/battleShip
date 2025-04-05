@@ -8,7 +8,6 @@ function Gameboard() {
         return board;
     }
     const cell = () => {
-        debugger;
         let value = '';
         let Ship = null;
         const getValue = () => {
@@ -50,6 +49,8 @@ function Gameboard() {
         board.forEach((row, index1) => {
             row.forEach((Cell, index2) => {
                 let ship = Cell.getShip();
+                console.log(ship);
+                console.log(ship.isSunk());
                 if (!ship.isSunk()) {
                     defeated = false;
                 }
