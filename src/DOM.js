@@ -8,10 +8,8 @@ function DOM() {
         : document.querySelector(".computerBoard");
     const rows = 10;
     const columns = 10;
-    
 
     if (!isGameStarted) {
-
       for (let i = 0; i < rows; ++i) {
         const rowdiv = document.createElement("div");
         rowdiv.classList.add("row");
@@ -27,14 +25,18 @@ function DOM() {
           rowdiv.appendChild(celldiv);
         }
       }
-       
     } else {
       for (let i = 0; i < rows; ++i) {
         for (let j = 0; j < columns; ++j) {
           const valOnCell = board[i][j].getValue();
-          const cell = document.querySelector(
-            `.computerBoard [data-row="${i}"][data-column="${j}"].cell`
-          );
+          const cell =
+            playerNumber == 0
+              ? document.querySelector(
+                  `.computerBoard [data-row="${i}"][data-column="${j}"].cell`
+                )
+              : document.querySelector(
+                  `.humanBoard [data-row="${i}"][data-column="${j}"].cell`
+                );
           if (cell) {
             cell.textContent = valOnCell;
           } else {
@@ -120,38 +122,36 @@ function DOM() {
     };
 
     const playRound = (row, column, cellDiv) => {
-
       idx = 0;
       players[1].gameboard.receiveAttack(row, column);
       updateBoardDisplay(players[1].gameboard, idx, 1);
       if (checkWin()) {
         prompt(`Congrats, You won the game`);
       } else {
-
         idx = 1;
         turnDiv.textContent = `It's computer's move now`;
 
         const computerMove = async () => {
-
-          await delay(5000);
+          // await delay(1000);
           let computerChoice = [0, 0];
-          computerChoice[0] = getRandomInt(0,9);
-          computerChoice[1] = getRandomInt(0,9);
+          computerChoice[0] = getRandomInt(0, 9);
+          computerChoice[1] = getRandomInt(0, 9);
 
-          players[0].gameboard.receiveAttack(computerChoice[0], computerChoice[1]);
+          players[0].gameboard.receiveAttack(
+            computerChoice[0],
+            computerChoice[1]
+          );
           updateBoardDisplay(players[0].gameboard, idx, 1);
 
           if (checkWin()) {
             prompt(`You lose, computer won the game.`);
           }
-
         };
 
         computerMove();
       }
     };
     return { players, switchPlayerTurn, getActivePlayer, checkWin, playRound };
-
   };
   gameController();
 
