@@ -97,7 +97,7 @@ function DOM() {
     };
 
     const checkWin = () => {
-      if (players[idx].gameboard.areAllShipsSunk()) {
+      if (players[1-idx].gameboard.areAllShipsSunk()) {
         return true;
       } else {
         return false;
