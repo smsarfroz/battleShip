@@ -4,6 +4,7 @@ function Gameboard() {
     const columns = 10;
     const board = [];
     const missedAttacks = [];
+    let numberOfShipsLeft = 0;
     const getBoard = () => {
         return board;
     }
@@ -34,6 +35,7 @@ function Gameboard() {
     const placeShip = (row, column, lengthOfShip) => {
         //assuming ship is placed horizontally
         //assuming the locations where it is being placed are valid
+        numberOfShipsLeft++;
         let ship = new Ship(lengthOfShip);
         for (let i = 0; i < lengthOfShip; ++i) {
             board[row + i][column].placeShipOnCell(ship);
@@ -43,11 +45,14 @@ function Gameboard() {
     const receiveAttack = (row, column) => {
         let ship = board[row][column].getShip();
         if (ship == null) {
-            board[row][column].placeStuff('.');
+            board[row][column].placeStuff('O');
             missedAttacks.push([row, column]);
         } else {
             board[row][column].placeStuff('X');
             ship.hit();
+            if (ship.isSunk()) {
+                numberOfShipsLeft--;
+            }
         }
     };
     const areAllShipsSunk = () => {
@@ -67,7 +72,7 @@ function Gameboard() {
         return defeated; 
     };
     
-    return { cell, getBoard, placeShip, receiveAttack, areAllShipsSunk};
+    return { cell, getBoard, placeShip, receiveAttack, areAllShipsSunk, numberOfShipsLeft};
 }
 export { Gameboard }; 
 

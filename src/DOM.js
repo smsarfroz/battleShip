@@ -9,6 +9,13 @@ function DOM() {
     const rows = 10;
     const columns = 10;
 
+    const shipLeft1 = document.querySelector(".shipLeft1");
+    const shipLeft2 = document.querySelector(".shipLeft2");
+    if (!playerNumber) {
+      shipLeft2.textContent = gameboard.numberOfShipsLeft;
+    } else {
+      shipLeft1.textContent = gameboard.numberOfShipsLeft;
+    }
     if (!isGameStarted) {
       for (let i = 0; i < rows; ++i) {
         const rowdiv = document.createElement("div");
@@ -86,7 +93,7 @@ function DOM() {
     let activePlayer = players[idx];
 
     const turnDiv = document.querySelector(".turn");
-    turnDiv.textContent = `It's your turn now, play your move`;
+    turnDiv.textContent = `Your Turn`;
 
     const switchPlayerTurn = () => {
       activePlayer = activePlayer == players[0] ? players[1] : players[0];
@@ -129,10 +136,10 @@ function DOM() {
         prompt(`Congrats, You won the game`);
       } else {
         idx = 1;
-        turnDiv.textContent = `It's computer's move now`;
+        turnDiv.textContent = `Computer's Turn`;
 
         const computerMove = async () => {
-          // await delay(1000);
+          await delay(1000);
           let computerChoice = [0, 0];
           computerChoice[0] = getRandomInt(0, 9);
           computerChoice[1] = getRandomInt(0, 9);
@@ -145,6 +152,8 @@ function DOM() {
 
           if (checkWin()) {
             prompt(`You lose, computer won the game.`);
+          } else {
+            turnDiv.textContent = `Your Turn`;
           }
         };
 
