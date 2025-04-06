@@ -8,6 +8,8 @@ function DOM() {
         : document.querySelector(".computerBoard");
     const rows = 10;
     const columns = 10;
+    
+
     if (!isGameStarted) {
 
       for (let i = 0; i < rows; ++i) {
@@ -16,8 +18,8 @@ function DOM() {
         boardElement.appendChild(rowdiv);
 
         for (let j = 0; j < columns; ++j) {
-          const valOnCell = board[i][j].getValue();
           const celldiv = document.createElement("div");
+          const valOnCell = board[i][j].getValue();
           celldiv.classList.add("cell");
           celldiv.dataset.row = i;
           celldiv.dataset.column = j;
@@ -28,11 +30,16 @@ function DOM() {
        
     } else {
       for (let i = 0; i < rows; ++i) {
-        for (let j = 0; j < column; ++j) {
-          // select the cell with dataset values i, j and some class name and that it should be descendent of computerBoard div. How ? 
+        for (let j = 0; j < columns; ++j) {
+          const valOnCell = board[i][j].getValue();
           const cell = document.querySelector(
-            `.computerBoard [data-row="${i}"]`
+            `.computerBoard [data-row="${i}"][data-column="${j}"].cell`
           );
+          if (cell) {
+            cell.textContent = valOnCell;
+          } else {
+            console.log("Cell not found.");
+          }
         }
       }
     }
@@ -52,8 +59,8 @@ function DOM() {
     gameboard2.placeShip(3, 2, 3);
     gameboard2.placeShip(3, 4, 2);
 
-    updateBoardDisplay(gameboard1, 0);
-    updateBoardDisplay(gameboard2, 1);
+    updateBoardDisplay(gameboard1, 0, 0);
+    updateBoardDisplay(gameboard2, 1, 0);
 
     return { player1, player2, gameboard1, gameboard2 };
   };
@@ -116,7 +123,7 @@ function DOM() {
 
       idx = 0;
       players[1].gameboard.receiveAttack(row, column);
-      updateBoardDisplay(players[1].gameboard, idx);
+      updateBoardDisplay(players[1].gameboard, idx, 1);
       if (checkWin()) {
         prompt(`Congrats, You won the game`);
       } else {
@@ -132,7 +139,7 @@ function DOM() {
           computerChoice[1] = getRandomInt(0,9);
 
           players[0].gameboard.receiveAttack(computerChoice[0], computerChoice[1]);
-          updateBoardDisplay(players[0].gameboard, idx);
+          updateBoardDisplay(players[0].gameboard, idx, 1);
 
           if (checkWin()) {
             prompt(`You lose, computer won the game.`);
