@@ -2,13 +2,6 @@
   margin: 0;
   background-color: #0a2342;
 }
-.cell {
-  width: 3em;
-  height: 3em;
-  background-color: #6c8ea4;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border: 2px solid black;
-}
 
 .row {
   display: flex;
@@ -92,4 +85,45 @@ header {
     color: red;
     margin-left: 289px;
     background-color: rgb(138, 100, 100);
+}
+
+.cell {
+  width: 3em;
+  height: 3em;
+  background-color: #6c8ea4;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid black;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.cell.hit {
+  /* background: #ff6b6b; */
+}
+.cell.hit::after {
+  content: "✕";
+  color: red;
+  font-size: 3em;
+  
+}
+
+.cell.miss {
+  /* background: #e9ecef; */
+}
+.cell.miss::after {
+  content: "•";
+  font-size: 3em;
+}
+
+.humanBoard .cell.ship {
+  background: #a1c1e1; /* Visible only on human board */
+}
+
+.cell:hover:not(.hit):not(.miss) {
+  background: #a5d8ff;
+  cursor: crosshair;
 }

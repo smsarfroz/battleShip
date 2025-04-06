@@ -29,7 +29,10 @@ function DOM() {
           celldiv.classList.add("cell");
           celldiv.dataset.row = i;
           celldiv.dataset.column = j;
-          celldiv.textContent = valOnCell;
+          // celldiv.textContent = valOnCell;
+          if (valOnCell == '[ship]') {
+            celldiv.classList.add('ship');
+          }
           rowdiv.appendChild(celldiv);
         }
       }
@@ -46,7 +49,12 @@ function DOM() {
                   `.humanBoard [data-row="${i}"][data-column="${j}"].cell`
                 );
           if (cell) {
-            cell.textContent = valOnCell;
+            // cell.textContent = valOnCell;
+            if (valOnCell == 'O') {
+              cell.classList.add('miss');
+            } else if (valOnCell == 'X') {
+              cell.classList.add('hit');
+            }
           } else {
             console.log("Cell not found.");
           }
