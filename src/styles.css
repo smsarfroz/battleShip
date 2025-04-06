@@ -118,8 +118,9 @@ header {
   font-size: 3em;
 }
 
-.humanBoard .cell.ship {
-  background: #a1c1e1; /* Visible only on human board */
+.cell.ship {
+    /* Visible only on human board */
+  background: #a1c1e1; 
 }
 
 .cell:hover:not(.hit):not(.miss) {

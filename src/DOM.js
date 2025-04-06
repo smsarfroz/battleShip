@@ -1,4 +1,5 @@
 import { Player } from "./Player.js";
+import { Ship } from "./Ship.js";
 function DOM() {
   const updateBoardDisplay = (
     gameboard,
@@ -99,12 +100,20 @@ function DOM() {
     return false;
   }
   const randomize = (gameboard, coord) => {
+    const board = gameboard.getBoard();
+    gameboard.updateNumberOfShipsLeft(0);
+    for (let i = 0; i < 10; ++i) {
+      for (let j = 0; j < 10; ++j) {
+        board[i][j].placeShipOnCell(null);
+        board[i][j].placeStuff('');
+      }
+    }
     let sumShouldBe = 0;
     coord.forEach((element) => {
       sumShouldBe += element[2];
     });
     let valid = false;
-    let newShipArray = [
+    let newCoords = [
 
     ];
     while (!valid) {
@@ -153,15 +162,26 @@ function DOM() {
 
       if (sumarrayFromgenCoord == sumShouldBe) {
         valid = true;
-        newShipArray = arrayFromgenCoord;
+        newCoords = generatedCoord;
       }
     }
 
+    console.log(newCoords);
     //iterate the gameboard, check if the array contains the value 1 then place ship part on the gameboard
     //else remove the ship part
     //no, Iterate through the newCoords and create a new ship object. Use placeship function of
     //Gameboard to place the ships
-    //first, I will have to clear the ships from gameboard ? How ? 
+    //first, I will have to clear the ships from gameboard ? How ? yes, cleared. Now, what ? 
+
+    newCoords.forEach(element => {
+      let {x, y, len, dir} = element;
+      console.log(element);
+      const newShip = new Ship(len);
+      gameboard.placeShip(x, y, len, dir);
+    });
+    console.log(gameboard);
+    console.log(gameboard.getBoard());
+    updateBoardDisplay(gameboard, 0, 1, 0);
   };
   const setupNewGame = () => {
     let player1 = new Player("sarfroz");
@@ -206,6 +226,15 @@ function DOM() {
     updateBoardDisplay(gameboard1, 0, 0);
     updateBoardDisplay(gameboard2, 1, 0);
 
+    //randomize the board of computer 
+    randomize(gameboard2, coords);
+
+    //add listener to randomize board1 option
+
+    const randomizeSelection1 = document.querySelector(".randomizeSelection1");
+    randomizeSelection1.addEventListener('click', () => {
+      randomize(gameboard1, coords);
+    });
     return { player1, player2, gameboard1, gameboard2, coords };
   };
   // setupNewGame();

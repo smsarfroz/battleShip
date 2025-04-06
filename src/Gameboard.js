@@ -11,6 +11,9 @@ function Gameboard() {
     const getNumberOfShipsLeft = () => {
         return numberOfShipsLeft;
     }
+    const updateNumberOfShipsLeft = (val) => {
+        numberOfShipsLeft = val;
+    }
     const cell = () => {
         let value = '';
         let Ship = null;
@@ -83,7 +86,7 @@ function Gameboard() {
         return defeated; 
     };
     
-    return { cell, getBoard, placeShip, receiveAttack, areAllShipsSunk, getNumberOfShipsLeft};
+    return { cell, getBoard, placeShip, receiveAttack, areAllShipsSunk, getNumberOfShipsLeft, updateNumberOfShipsLeft};
 }
 export { Gameboard }; 
 
