@@ -1,6 +1,6 @@
 import { Player } from "./Player.js";
 function DOM() {
-  const updateBoardDisplay = (gameboard, playerNumber, isGameStarted) => {
+  const updateBoardDisplay = (gameboard, playerNumber, isGameStarted, areWeReseting) => {
     const board = gameboard.getBoard();
     const boardElement =
       playerNumber == 0
@@ -49,16 +49,35 @@ function DOM() {
                   `.humanBoard [data-row="${i}"][data-column="${j}"].cell`
                 );
           if (cell) {
-            // cell.textContent = valOnCell;
             if (valOnCell == 'O') {
-              cell.classList.add('miss');
+              if (areWeReseting) {
+                board[i][j].placeStuff('');
+              } else {
+                cell.classList.add('miss');
+              }
             } else if (valOnCell == 'X') {
-              cell.classList.add('hit');
+              if (areWeReseting) {
+                board[i][j].placeStuff('');
+              } else {
+                cell.classList.add('hit');
+              }
             }
           } else {
             console.log("Cell not found.");
           }
         }
+      }
+
+      if (areWeReseting) {
+        const allHitDivs = document.querySelectorAll(".hit");
+        allHitDivs.forEach(element => {
+          element.classList.remove('hit');
+        });
+
+        const allMissDivs = document.querySelectorAll(".miss");
+        allMissDivs.forEach(element => {
+          element.classList.remove('miss');
+        });
       }
     }
   };
@@ -142,6 +161,9 @@ function DOM() {
       players[1].gameboard.receiveAttack(row, column);
       updateBoardDisplay(players[1].gameboard, idx, 1);
       if (checkWin()) {
+        //reset the board
+        updateBoardDisplay(players[0].gameboard, 0, 1, 1);
+        updateBoardDisplay(players[1].gameboard, 1, 1, 1);
         prompt(`Congrats, You won the game`);
       } else {
         idx = 1;
@@ -160,6 +182,9 @@ function DOM() {
           updateBoardDisplay(players[0].gameboard, idx, 1);
 
           if (checkWin()) {
+            //reset the board
+            updateBoardDisplay(players[0].gameboard, 0, 1, 1);
+            updateBoardDisplay(players[1].gameboard, 1, 1, 1);
             prompt(`You lose, computer won the game.`);
           } else {
             turnDiv.textContent = `Your Turn`;

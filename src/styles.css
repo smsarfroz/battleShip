@@ -62,7 +62,6 @@ header {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
-    /* max-width: 1000px; */
     margin: 10px auto;
 }
 
@@ -72,9 +71,9 @@ header {
     background-color: #e9f5ff;
     border: 1px solid #b8daff;
     border-radius: 5px;
-    color: #004085;
     border-style: none;
     width: 200px;
+    font-family: 'Black Ops One'
 }
 .shipLeft1 {
     margin-left: 254px;
