@@ -65,3 +65,28 @@ header {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+.shipsLeftsection {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    max-width: 400px;
+    margin: 10px auto;
+}
+
+.shipLeft1, .shipLeft2 {
+    padding: 10px;
+    text-align: center;
+    background-color: #e9f5ff;
+    border: 1px solid #b8daff;
+    border-radius: 5px;
+    color: #004085;
+    border-style: none;
+}
+.shipLeft1 {
+    color: green;
+    background-color: rgb(169, 218, 169);
+}
+.shipLeft2 {
+    color: red;
+    background-color: rgb(138, 100, 100);
+}

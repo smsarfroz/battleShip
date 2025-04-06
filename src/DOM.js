@@ -13,9 +13,9 @@ function DOM() {
     const shipLeft2 = document.querySelector(".shipLeft2");
     console.log(gameboard.getNumberOfShipsLeft());
     if (!playerNumber) {
-      shipLeft2.textContent = gameboard.getNumberOfShipsLeft();
+      shipLeft2.textContent = `Enemy Ships left: ${gameboard.getNumberOfShipsLeft()}`;
     } else {
-      shipLeft1.textContent = gameboard.getNumberOfShipsLeft();
+      shipLeft1.textContent = `Ships remaining : ${gameboard.getNumberOfShipsLeft()}`;
     }
     if (!isGameStarted) {
       for (let i = 0; i < rows; ++i) {
