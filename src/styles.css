@@ -69,7 +69,7 @@ header {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
-    max-width: 400px;
+    /* max-width: 1000px; */
     margin: 10px auto;
 }
 
@@ -81,12 +81,15 @@ header {
     border-radius: 5px;
     color: #004085;
     border-style: none;
+    width: 200px;
 }
 .shipLeft1 {
+    margin-left: 254px;
     color: green;
     background-color: rgb(169, 218, 169);
 }
 .shipLeft2 {
     color: red;
+    margin-left: 289px;
     background-color: rgb(138, 100, 100);
 }
