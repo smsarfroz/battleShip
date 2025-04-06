@@ -8,6 +8,9 @@ function Gameboard() {
     const getBoard = () => {
         return board;
     }
+    const getNumberOfShipsLeft = () => {
+        return numberOfShipsLeft;
+    }
     const cell = () => {
         let value = '';
         let Ship = null;
@@ -36,6 +39,7 @@ function Gameboard() {
         //assuming ship is placed horizontally
         //assuming the locations where it is being placed are valid
         numberOfShipsLeft++;
+        console.log(numberOfShipsLeft);
         let ship = new Ship(lengthOfShip);
         for (let i = 0; i < lengthOfShip; ++i) {
             board[row + i][column].placeShipOnCell(ship);
@@ -52,6 +56,7 @@ function Gameboard() {
             ship.hit();
             if (ship.isSunk()) {
                 numberOfShipsLeft--;
+                console.log(numberOfShipsLeft);
             }
         }
     };
@@ -72,7 +77,7 @@ function Gameboard() {
         return defeated; 
     };
     
-    return { cell, getBoard, placeShip, receiveAttack, areAllShipsSunk, numberOfShipsLeft};
+    return { cell, getBoard, placeShip, receiveAttack, areAllShipsSunk, getNumberOfShipsLeft};
 }
 export { Gameboard }; 
 

@@ -11,10 +11,11 @@ function DOM() {
 
     const shipLeft1 = document.querySelector(".shipLeft1");
     const shipLeft2 = document.querySelector(".shipLeft2");
+    console.log(gameboard.getNumberOfShipsLeft());
     if (!playerNumber) {
-      shipLeft2.textContent = gameboard.numberOfShipsLeft;
+      shipLeft2.textContent = gameboard.getNumberOfShipsLeft();
     } else {
-      shipLeft1.textContent = gameboard.numberOfShipsLeft;
+      shipLeft1.textContent = gameboard.getNumberOfShipsLeft();
     }
     if (!isGameStarted) {
       for (let i = 0; i < rows; ++i) {
