@@ -67,6 +67,12 @@ function DOM() {
               } else {
                 cell.classList.add("hit");
               }
+            } else if (valOnCell == '[ship]') {
+              if (areWeReseting) {
+                board[i][j].placeStuff("");
+              } else {
+                cell.classList.add('ship');
+              }
             }
           } else {
             console.log("Cell not found.");
@@ -84,6 +90,7 @@ function DOM() {
         allMissDivs.forEach((element) => {
           element.classList.remove("miss");
         });
+
       }
     }
   };
@@ -99,9 +106,23 @@ function DOM() {
     }
     return false;
   }
-  const randomize = (gameboard, coord) => {
-    const board = gameboard.getBoard();
+  const randomize = (gameboard, coord, playerNumber) => {
+    let board = gameboard.getBoard();
+
     gameboard.updateNumberOfShipsLeft(0);
+    //remove ship class from cells of playerNumber's board
+    if (playerNumber == 0) {
+      const allShipDivsOfUser = document.querySelectorAll(".humanBoard .ship");
+      allShipDivsOfUser.forEach(element => {
+        element.classList.remove('ship');
+      });
+    } else {
+      const allShipDivOfComputer = document.querySelectorAll(".computerBoard .ship");
+      allShipDivOfComputer.forEach(element => {
+        console.log(element);
+        element.classList.remove('ship');
+      });
+    }
     for (let i = 0; i < 10; ++i) {
       for (let j = 0; j < 10; ++j) {
         board[i][j].placeShipOnCell(null);
@@ -134,22 +155,30 @@ function DOM() {
       for (let i = 0; i < 10; ++i) {
         arrayFromgenCoord[i] = [];
       }
+      let generatedCoordValid = true;
       generatedCoord.forEach(element => {
         const [x, y, len, dir] = element;
         if (dir == 0) {
           for (let i = 0; i < len; ++i) {
             if (isValidCoord(x + i, y)) {
               arrayFromgenCoord[x + i][y] = 1;
+            } else {
+              generatedCoordValid = false; 
             }
           }
         } else {
           for (let i = 0; i < len; ++i) {
             if (isValidCoord(x, y + i)) {
               arrayFromgenCoord[x][y + i] = 1;
+            } else {
+              generatedCoordValid = false; 
             }
           }
         }
       });
+      if (!generatedCoordValid) {
+        continue;
+      }
 
       let sumarrayFromgenCoord = 0;
       arrayFromgenCoord.forEach((element, idx) => {
@@ -159,29 +188,25 @@ function DOM() {
           }
         });
       });
-
       if (sumarrayFromgenCoord == sumShouldBe) {
         valid = true;
         newCoords = generatedCoord;
       }
     }
 
-    console.log(newCoords);
-    //iterate the gameboard, check if the array contains the value 1 then place ship part on the gameboard
-    //else remove the ship part
-    //no, Iterate through the newCoords and create a new ship object. Use placeship function of
-    //Gameboard to place the ships
-    //first, I will have to clear the ships from gameboard ? How ? yes, cleared. Now, what ? 
 
     newCoords.forEach(element => {
-      let {x, y, len, dir} = element;
-      console.log(element);
-      const newShip = new Ship(len);
+      let [x, y, len, dir] = element;
       gameboard.placeShip(x, y, len, dir);
     });
-    console.log(gameboard);
-    console.log(gameboard.getBoard());
-    updateBoardDisplay(gameboard, 0, 1, 0);
+
+    const Board = gameboard.getBoard();
+    Board.forEach((row, idx1) => {
+      row.forEach((cell, idx2) => {
+        console.log(idx1, idx2, cell.getValue());
+      });
+    });
+    updateBoardDisplay(gameboard, 1-playerNumber, 1, 0);
   };
   const setupNewGame = () => {
     let player1 = new Player("sarfroz");
@@ -223,17 +248,18 @@ function DOM() {
     gameboard2.placeShip(2, 7, 2, 0);
     gameboard2.placeShip(5, 7, 2, 0);
 
-    updateBoardDisplay(gameboard1, 0, 0);
-    updateBoardDisplay(gameboard2, 1, 0);
+    updateBoardDisplay(gameboard1, 0, 0, 0);
+    updateBoardDisplay(gameboard2, 1, 0, 0);
 
     //randomize the board of computer 
-    randomize(gameboard2, coords);
+    randomize(gameboard2, coords, 1);
 
     //add listener to randomize board1 option
 
     const randomizeSelection1 = document.querySelector(".randomizeSelection1");
     randomizeSelection1.addEventListener('click', () => {
-      randomize(gameboard1, coords);
+      console.log("randomize button clicked");
+      randomize(gameboard1, coords, 0);
     });
     return { player1, player2, gameboard1, gameboard2, coords };
   };

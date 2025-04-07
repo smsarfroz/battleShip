@@ -127,3 +127,13 @@ header {
   background: #a5d8ff;
   cursor: crosshair;
 }
+
+.randomizeSelection1 {
+  width: 75px;
+  height: 30px;
+  background-color: #a1c1e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
