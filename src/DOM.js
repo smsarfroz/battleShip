@@ -303,7 +303,9 @@ function DOM() {
       const cellDiv = event.target;
       const row = cellDiv.dataset.row;
       const column = cellDiv.dataset.column;
-      playRound(row, column, cellDiv);
+      if (!cellDiv.classList.contains('miss') && !cellDiv.classList.contains('hit')) {
+        playRound(row, column, cellDiv);
+      }
     });
 
     const delay = (ms) => new Promise((res) => setTimeout(res, ms));
