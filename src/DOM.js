@@ -141,7 +141,7 @@ function DOM() {
       let generatedCoord = [
 
       ];
-      for (let i = 0; i < 10; ++i) {
+      for (let i = 0; i < 4; ++i) {
         generatedCoord[i] = [];
         generatedCoord[i][0] = getRandomInt(0,9);
         generatedCoord[i][1] = getRandomInt(0,9);
@@ -161,6 +161,7 @@ function DOM() {
         if (dir == 0) {
           for (let i = 0; i < len; ++i) {
             if (isValidCoord(x + i, y)) {
+              console.log(arrayFromgenCoord);
               arrayFromgenCoord[x + i][y] = 1;
             } else {
               generatedCoordValid = false; 
@@ -219,34 +220,29 @@ function DOM() {
       [3, 1, 2, 0],
       [7, 1, 1, 0],
       [2, 3, 1, 0],
-      [7, 3, 1, 0],
-      [2, 5, 3, 0],
-      [9, 5, 4, 1],
-      [0, 6, 1, 0],
-      [2, 7, 2, 0],
-      [5, 7, 2, 0],
+    
     ];
     gameboard1.placeShip(0, 0, 3, 1);
     gameboard1.placeShip(3, 1, 2, 0);
     gameboard1.placeShip(7, 1, 1, 0);
     gameboard1.placeShip(2, 3, 1, 0);
-    gameboard1.placeShip(7, 3, 1, 0);
-    gameboard1.placeShip(2, 5, 3, 0);
-    gameboard1.placeShip(9, 5, 4, 1);
-    gameboard1.placeShip(0, 6, 1, 0);
-    gameboard1.placeShip(2, 7, 2, 0);
-    gameboard1.placeShip(5, 7, 2, 0);
+    // gameboard1.placeShip(7, 3, 1, 0);
+    // gameboard1.placeShip(2, 5, 3, 0);
+    // gameboard1.placeShip(9, 5, 4, 1);
+    // gameboard1.placeShip(0, 6, 1, 0);
+    // gameboard1.placeShip(2, 7, 2, 0);
+    // gameboard1.placeShip(5, 7, 2, 0);
 
     gameboard2.placeShip(0, 0, 3, 1);
     gameboard2.placeShip(3, 1, 2, 0);
     gameboard2.placeShip(7, 1, 1, 0);
     gameboard2.placeShip(2, 3, 1, 0);
-    gameboard2.placeShip(7, 3, 1, 0);
-    gameboard2.placeShip(2, 5, 3, 0);
-    gameboard2.placeShip(9, 5, 4, 1);
-    gameboard2.placeShip(0, 6, 1, 0);
-    gameboard2.placeShip(2, 7, 2, 0);
-    gameboard2.placeShip(5, 7, 2, 0);
+    // gameboard2.placeShip(7, 3, 1, 0);
+    // gameboard2.placeShip(2, 5, 3, 0);
+    // gameboard2.placeShip(9, 5, 4, 1);
+    // gameboard2.placeShip(0, 6, 1, 0);
+    // gameboard2.placeShip(2, 7, 2, 0);
+    // gameboard2.placeShip(5, 7, 2, 0);
 
     updateBoardDisplay(gameboard1, 0, 0, 0);
     updateBoardDisplay(gameboard2, 1, 0, 0);
@@ -314,19 +310,22 @@ function DOM() {
 
     const playRound = (row, column, cellDiv) => {
       idx = 0;
+      console.log("Before attack - Ships left:", players[1].gameboard.getNumberOfShipsLeft());
       players[1].gameboard.receiveAttack(row, column);
+      console.log("After attack - Ships left:", players[1].gameboard.getNumberOfShipsLeft());
       updateBoardDisplay(players[1].gameboard, idx, 1);
       if (checkWin()) {
         //reset the board
         updateBoardDisplay(players[0].gameboard, 0, 1, 1);
         updateBoardDisplay(players[1].gameboard, 1, 1, 1);
         prompt(`Congrats, You won the game`);
+        window.location.reload();
       } else {
         idx = 1;
         turnDiv.textContent = `Computer's Turn`;
 
         const computerMove = async () => {
-          await delay(1000);
+          await delay(10);
           let computerChoice = [0, 0];
           computerChoice[0] = getRandomInt(0, 9);
           computerChoice[1] = getRandomInt(0, 9);
@@ -351,6 +350,7 @@ function DOM() {
             updateBoardDisplay(players[0].gameboard, 0, 1, 1);
             updateBoardDisplay(players[1].gameboard, 1, 1, 1);
             prompt(`You lose, computer won the game.`);
+            window.location.reload();
           } else {
             turnDiv.textContent = `Your Turn`;
           }
