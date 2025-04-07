@@ -118,7 +118,7 @@ header {
   font-size: 3em;
 }
 
-.cell.ship {
+.humanBoard .cell.ship {
     /* Visible only on human board */
   background: #a1c1e1; 
 }
